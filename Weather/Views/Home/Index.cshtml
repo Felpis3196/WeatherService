@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Consultar Clima";
+}
+
+<h1>Consultar Clima</h1>
+
+<form method="post" asp-controller="Home" asp-action="Index">
+    <div>
+        <label for="cityName">Nome da Cidade:</label>
+        <input type="text" id="cityName" name="cityName" required />
+    </div>
+    <div>
+        <label for="countryCode">Código do País (opcional):</label>
+        <input type="text" id="countryCode" name="countryCode" placeholder="Ex: BR" />
+    </div>
+    <button type="submit">Consultar</button>
+</form>
+
+@if (ViewData["WeatherData"] != null)
+{
+    <div>
+        <h2>Dados do Clima:</h2>
+        <pre>@ViewData["WeatherData"]</pre>
+    </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color: red;">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
