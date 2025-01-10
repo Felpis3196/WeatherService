@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fegri\\Desktop\\Weather\\Weather\\Weather\\Weather.csproj",
+      "projectUniqueName": "C:\\Users\\fegri\\Desktop\\Weather\\Weather\\Weather.csproj",
       "projectName": "Weather",
-      "projectPath": "C:\\Users\\fegri\\Desktop\\Weather\\Weather\\Weather\\Weather.csproj",
+      "projectPath": "C:\\Users\\fegri\\Desktop\\Weather\\Weather\\Weather.csproj",
       "packagesPath": "C:\\Users\\fegri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fegri\\Desktop\\Weather\\Weather\\Weather\\obj\\",
+      "outputPath": "C:\\Users\\fegri\\Desktop\\Weather\\Weather\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

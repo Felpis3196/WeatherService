@@ -32,7 +32,8 @@ namespace Weather.Controllers
             try
             {
                 var weatherData = await _weatherService.GetWeatherByLocationAsync(cityName, countryCode);
-                ViewData["WeatherData"] = weatherData;
+                ViewData["WeatherData"] = 1;
+                return View(weatherData);
             }
             catch (Exception ex)
             {
@@ -41,6 +42,8 @@ namespace Weather.Controllers
 
             return View();
         }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

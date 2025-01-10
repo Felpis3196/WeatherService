@@ -1,5 +1,8 @@
-﻿@{
+﻿@using static Weather.Models.ApiWeather
+@model WeatherResponse
+@{
     ViewData["Title"] = "Consultar Clima";
+    
 }
 
 <h1>Consultar Clima</h1>
@@ -19,11 +22,16 @@
 @if (ViewData["WeatherData"] != null)
 {
     <div>
-        <h2>Dados do Clima:</h2>
-        <pre>@ViewData["WeatherData"]</pre>
+        <h2>Clima para: @Model.Name</h2>
+        <p>Temperatura: @Model.Main.Temp °C</p>
+        <p>Umidade: @Model.Main.Humidity%</p>
+        <p>Condição: @Model.Weather[0].Description</p>
+        <p>Sensação Térmica: @Model.Main.FeelsLike °C</p>
+        <p>Máxima Térmica: @Model.Main.TempMax °C</p>
+        <p>Minima Térmica: @Model.Main.TempMin °C</p>
     </div>
 }
-
+   
 @if (!ViewData.ModelState.IsValid)
 {
     <div style="color: red;">

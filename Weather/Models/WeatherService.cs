@@ -1,4 +1,7 @@
-﻿namespace Weather.Models
+﻿using static Weather.Models.ApiWeather;
+using System.Text.Json;
+
+namespace Weather.Models
 {
     public class WeatherService
     {
@@ -11,11 +14,13 @@
             _apiGeo = geoApi;
         }
 
-        public async Task<string> GetWeatherByLocationAsync(string cityName, string? countryCode)
+        public async Task<WeatherResponse> GetWeatherByLocationAsync(string cityName, string? countryCode)
         {
             var (lat, lon) = await _apiGeo.GetCoordinatesAsync(cityName, countryCode);
-            return await _apiWeather.GetDataFromWeatherApiAsync(lat.ToString(), lon.ToString());
+            var weatherData = await _apiWeather.GetDataFromWeatherApiAsync(lat, lon);
+            return weatherData;
         }
+
     }
 
 }
