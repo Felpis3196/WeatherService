@@ -33,6 +33,7 @@ namespace Weather.Controllers
             {
                 var weatherData = await _weatherService.GetWeatherByLocationAsync(cityName, countryCode);
                 ViewData["WeatherData"] = 1;
+                
                 return View(weatherData);
             }
             catch (Exception ex)

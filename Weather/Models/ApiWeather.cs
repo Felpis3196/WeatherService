@@ -6,15 +6,19 @@ namespace Weather.Models
 {
     public class ApiWeather
     {
+        private readonly string _apiKey;
         private readonly HttpClient _httpClient;
-        public ApiWeather(HttpClient httpClient)
+        public ApiWeather(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            _apiKey = configuration["WeatherApi:ApiKey"]
+                      ?? throw new InvalidOperationException("A chave da API não está configurada.");
         }
         public class WeatherResponse
         {
             public MainInfo Main { get; set; }
             public Weather[] Weather { get; set; }
+            public Wind Wind { get; set; }
             public string Name { get; set; }
         }
         public class MainInfo
@@ -35,10 +39,16 @@ namespace Weather.Models
         {
             public string Description { get; set; }
         }
-
+        public class Wind
+        {
+            [JsonPropertyName("visibility")]
+            public double Visibilidade { get; set; } 
+            [JsonPropertyName("speed")]
+            public double Velocidade { get; set; }
+        }
+                                                        
         public async Task<WeatherResponse> GetDataFromWeatherApiAsync(double lat, double lon)
         {
-            var apiKey = "f8c57887056bfdcf8836da230f68aebf";
             var baseUrl = "https://api.openweathermap.org/data/2.5/weather";
 
             var uriBuilder = new UriBuilder(baseUrl);
@@ -46,7 +56,7 @@ namespace Weather.Models
 
             query["lat"] = lat.ToString();
             query["lon"] = lon.ToString();
-            query["appid"] = apiKey;
+            query["appid"] = _apiKey;
             query["units"] = "metric";
             query["lang"] = "pt_br";
 

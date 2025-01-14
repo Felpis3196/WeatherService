@@ -9,12 +9,15 @@ namespace Weather.Models
 {
     public class ApiGeo
     {
+        private readonly string _apiKey;
         private readonly HttpClient _httpClient;
         private readonly ILogger<HomeController> _logger;
-        public ApiGeo(HttpClient httpClient, ILogger<HomeController> logger)
+        public ApiGeo(HttpClient httpClient, ILogger<HomeController> logger, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _apiKey = configuration["WeatherApi:ApiKey"]
+                      ?? throw new InvalidOperationException("A chave da API não está configurada.");
         }
 
         public async Task<(double lat, double lon)> GetCoordinatesAsync(string cityName, string countryCode = "", int limit = 1)
@@ -22,7 +25,6 @@ namespace Weather.Models
             if (string.IsNullOrWhiteSpace(cityName))
                 throw new ArgumentException("O nome da cidade é obrigatório.", nameof(cityName));
 
-            var apiKey = "f8c57887056bfdcf8836da230f68aebf";
             var baseUrl = "http://api.openweathermap.org/geo/1.0/direct";
 
             var uriBuilder = new UriBuilder(baseUrl);
@@ -30,7 +32,7 @@ namespace Weather.Models
 
             query["q"] = $"{cityName.Trim()},{countryCode.Trim()}".Trim(',');
             query["limit"] = limit.ToString();
-            query["appid"] = apiKey;
+            query["appid"] = _apiKey;
 
             uriBuilder.Query = query.ToString();
 
